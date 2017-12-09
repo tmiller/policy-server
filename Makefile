@@ -9,7 +9,7 @@ LDFLAGS = -ldflags "-s -w -X main.VERSION=${VERSION} -X main.BUILD=${BUILD}"
 
 all: clean prep linux darwin package
 
-linux: 
+linux:
 	GOOS=linux GOARCH=${GOARCH} go build ${LDFLAGS} -o build/linux-${GOARCH}/${BINARY} .
 
 darwin:
