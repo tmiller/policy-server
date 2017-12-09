@@ -47,7 +47,7 @@ func main() {
 		log.SetOutput(f)
 	}
 
-	log.Printf(": INFO : version: %v commit: %v", VERSION, BUILD)
+	log.Printf(": BOOT : version: %v commit: %v", VERSION, BUILD)
 
 	policy, err := ioutil.ReadFile(policyFile)
 	if err != nil {
@@ -67,7 +67,7 @@ func main() {
 	// blocks when the queue is full and the workers block when the queue is
 	// empty.
 	log.Printf(
-		": INFO : %v workers consuming queue of %v",
+		": BOOT : %v workers consuming queue of %v",
 		numWorkers,
 		queueSize,
 	)
@@ -101,7 +101,7 @@ func main() {
 	}
 
 	// Setup TLS secured TCP listener
-	log.Printf(": INFO : starting listener on %v", bindAddress)
+	log.Printf(": BOOT : starting listener on %v", bindAddress)
 	ln, err := tls.Listen("tcp", bindAddress, tlsConfig)
 	if err != nil {
 		log.Fatalf(": ERROR : %v", err)
@@ -110,7 +110,7 @@ func main() {
 
 	// Accept connections on the listener and pass them into the queue. Where
 	// they will be picked up by the workers.
-	log.Printf(": INFO : listening on %v", ln.Addr())
+	log.Printf(": BOOT : listening on %v", ln.Addr())
 	for {
 		conn, err := ln.Accept()
 		if err != nil {
