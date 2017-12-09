@@ -11,6 +11,9 @@ import (
 	"strconv"
 )
 
+var VERSION string = ""
+var BUILD string = ""
+
 var policy []byte
 var policyFile string
 var keyFile string
@@ -43,6 +46,8 @@ func main() {
 		defer f.Close()
 		log.SetOutput(f)
 	}
+
+	log.Printf(": INFO : version: %v commit: %v", VERSION, BUILD)
 
 	policy, err := ioutil.ReadFile(policyFile)
 	if err != nil {
