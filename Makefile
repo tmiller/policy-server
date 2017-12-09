@@ -4,7 +4,7 @@ GOARCH = amd64
 VERSION?=$(shell git describe HEAD)
 BUILD=$(shell git rev-parse HEAD)
 
-LDFLAGS = -ldflags "-X main.VERSION=${VERSION} -X main.BUILD=${BUILD}"
+LDFLAGS = -ldflags "-s -w -X main.VERSION=${VERSION} -X main.BUILD=${BUILD}"
 
 all: clean prep linux darwin
 
