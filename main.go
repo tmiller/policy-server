@@ -61,6 +61,21 @@ func main() {
 		log.Fatalf(": ERROR : %v", err)
 	}
 
+	// Create a queue and some workers. When the queue is 0 it blocks the main
+	// thread from writing to the queue and the workers are blocked until there
+	// is something to read. With a queue greater then zero, the main thread
+	// blocks when the queue is full and the workers block when the queue is
+	// empty.
+	log.Printf(
+		": INFO : %v workers consuming queue of %v",
+		numWorkers,
+		queueSize,
+	)
+	conns := make(chan net.Conn, queueSize)
+	for i := 0; i < numWorkers; i++ {
+		go worker(conns, policy, i)
+	}
+
 	// Configure TLS
 	tlsConfig := &tls.Config{
 		Certificates: []tls.Certificate{cer},
@@ -92,21 +107,6 @@ func main() {
 		log.Fatalf(": ERROR : %v", err)
 	}
 	defer ln.Close()
-
-	// Create a queue and some workers. When the queue is 0 it blocks the main
-	// thread from writing to the queue and the workers are blocked until there
-	// is something to read. With a queue greater then zero, the main thread
-	// blocks when the queue is full and the workers block when the queue is
-	// empty.
-	log.Printf(
-		": INFO : %v workers consuming queue of %v",
-		numWorkers,
-		queueSize,
-	)
-	conns := make(chan net.Conn, queueSize)
-	for i := 0; i < numWorkers; i++ {
-		go worker(conns, policy, i)
-	}
 
 	// Accept connections on the listener and pass them into the queue. Where
 	// they will be picked up by the workers.
