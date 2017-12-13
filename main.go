@@ -15,6 +15,8 @@ var VERSION string = ""
 var BUILD string = ""
 
 var policy []byte
+
+// Variables read in from the CLI flags
 var policyFile string
 var keyFile string
 var certFile string
@@ -24,20 +26,28 @@ var numWorkers int
 var queueSize int
 
 func init() {
+
+	// Setup CLI flags and map them to Variables
 	flag.StringVar(&policyFile, "p", "crossdomain.xml", "policy file")
 	flag.StringVar(&certFile, "c", "tls.crt", "tls certificate")
 	flag.StringVar(&keyFile, "k", "tls.key", "tls private key")
 	flag.StringVar(&bindAddress, "b", ":843", "bind address")
-	flag.StringVar(&logFile, "l", "", "log file")
+	flag.StringVar(&logFile, "l", "", "log file (default STDOUT)")
 	flag.IntVar(&numWorkers, "w", 1, "number of workers")
 	flag.IntVar(&queueSize, "q", 0, "size of queue for workers (0 is ok)")
 	flag.Parse()
 
+	// Get the PID of the current process
 	pid := strconv.Itoa(os.Getpid())
+
+	// Prepend the PID to all logs
 	log.SetPrefix(fmt.Sprintf("%v : ", pid))
 }
 
 func main() {
+
+	// If a log file was specified on the cli then write output to the log,
+	// otherwise it will default to STDOUT
 	if logFile != "" {
 		f, err := os.OpenFile(logFile, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 		if err != nil {
@@ -47,8 +57,10 @@ func main() {
 		log.SetOutput(f)
 	}
 
+	// Log the release version and commit sha used to build this version
 	log.Printf(": BOOT : version: %v commit: %v", VERSION, BUILD)
 
+	// Load the policy file into memory to be served to clients
 	policy, err := ioutil.ReadFile(policyFile)
 	if err != nil {
 		log.Fatalf(": ERROR : %v", err)
@@ -56,6 +68,7 @@ func main() {
 	// Append a null byte since that is how the current policy server works
 	policy = append(policy, '\x00')
 
+	// Load a certificate and key for TLS encryption
 	cer, err := tls.LoadX509KeyPair(certFile, keyFile)
 	if err != nil {
 		log.Fatalf(": ERROR : %v", err)
@@ -116,6 +129,8 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
+
+		// This puts a connection onto the queue (using a go channel).
 		conns <- conn
 	}
 }
