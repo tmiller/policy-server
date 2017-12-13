@@ -29,7 +29,7 @@ cd ~/go/src/github.com/tmiller/policy-server
 
 ### Building
 
-```
+```bash
 # Build Release
 git merge <feature-branch>
 git tag -a <version-number> # make sure to look at other tags for tag format
