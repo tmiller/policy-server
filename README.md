@@ -15,8 +15,8 @@ gem install fpm
 #### Setup golang
 
 Download and install go from [here](https://golang.org/dl/).
-Put this in `~/.bashrc` or `~/.zshrc`
 ```bash
+# put this in .zshrc or .bashrc
 export PATH=$PATH:/usr/local/go/bin
 ```
 
