@@ -36,6 +36,48 @@ git tag -a <version-number> # make sure to look at other tags for tag format
 make all
 ```
 
+### Running the Policy Server
+
+#### Create self-signed certifiate for TLS
+
+To be able to run the policy server a self signed TLS certificate is required
+to generate this certificate you can run the following. The only thing you need
+to fill out is "Common Name" all other questions can be ignored by pressing
+enter at each prompt
+
+```bash
+# Use 'localhost' for the 'Common name'
+openssl req -x509 -sha256 -nodes -newkey rsa:2048 -days 365 -keyout localhost.key -out localhost.crt
+```
+
+#### Running the policy server
+
+Running the policy-server using `go run`:
+
+```bash
+go run main.go -b :8080 -c localhost.crt -k localhost.key -p resources/crossdomain.xml
+```
+
+Running the policy-server using the built binary:
+
+```bash
+build/darwin-amd64/policy-server -b :8080 -c localhost.crt -k localhost.key -p resources/crossdomain.xml
+```
+
+#### Connecting to the policy server
+
+You can use `curl` though it is technically not an HTTP server. You can also use
+`socat` (`brew install socat`). Curl is probably easiest to use
+
+```bash
+# Using curl
+curl --cacert localhost.crt https://localhost:8080
+
+# Using socat
+socat ssl:localhost:8080,cafile=localhost.crt stdio
+# Press enter
+```
+
 ### Performance Tuning
 
 There are two flags that can be used to tune performance. These are the number
