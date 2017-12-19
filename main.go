@@ -29,8 +29,8 @@ func init() {
 
 	// Setup CLI flags and map them to Variables
 	flag.StringVar(&policyFile, "p", "crossdomain.xml", "policy file")
-	flag.StringVar(&certFile, "c", "tls.crt", "tls certificate")
-	flag.StringVar(&keyFile, "k", "tls.key", "tls private key")
+	flag.StringVar(&certFile, "c", "localhost.crt", "tls certificate")
+	flag.StringVar(&keyFile, "k", "localhost.key", "tls private key")
 	flag.StringVar(&bindAddress, "b", ":843", "bind address")
 	flag.StringVar(&logFile, "l", "", "log file (default STDOUT)")
 	flag.IntVar(&numWorkers, "w", 1, "number of workers")
