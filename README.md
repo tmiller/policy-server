@@ -33,7 +33,7 @@ cd ~/go/src/github.com/tmiller/policy-server
 # Build Release
 git merge <feature-branch>
 git tag -a <version-number> # make sure to look at other tags for tag format
-make all
+VERSION=<version-number> make all
 ```
 
 ### Running the Policy Server
