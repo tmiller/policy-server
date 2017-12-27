@@ -14,6 +14,13 @@ gem install fpm
 
 #### Setup golang
 
+##### With ASDF
+
+You can install it using [asdf](https://github.com/asdf-vm/asdf)
+with the [asdf-golang](https://github.com/kennyp/asdf-golang) plugin.
+
+##### Manually
+
 Download and install go from [here](https://golang.org/dl/).
 ```bash
 # put this in .zshrc or .bashrc
