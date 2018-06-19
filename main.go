@@ -76,7 +76,7 @@ func main() {
 
 	// Create a queue and some workers. When the queue is 0 it blocks the main
 	// thread from writing to the queue and the workers are blocked until there
-	// is something to read. With a queue greater then zero, the main thread
+	// is something to read. With a queue greater than zero, the main thread
 	// blocks when the queue is full and the workers block when the queue is
 	// empty.
 	log.Printf(
