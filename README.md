@@ -14,6 +14,10 @@ gem install fpm
 
 #### Setup golang
 
+Tested with the following go versions:
+* 1.9.2
+* 1.10.3
+
 ##### With ASDF
 
 You can install it using [asdf](https://github.com/asdf-vm/asdf)
