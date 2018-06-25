@@ -3,6 +3,9 @@
 This is the readme for the golang policy server. Please see development setup
 for things you will need to develop or deploy this project
 
+Version 3.0.3 supports Ubuntu 14.04 Trusty
+Version 4.0.0 and above supports Ubuntu 16.04 Xenial and above.
+
 ### Development Setup
 
 #### Setup Build tools (required for ruby version too)
