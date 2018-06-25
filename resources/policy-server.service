@@ -1,0 +1,23 @@
+[Unit]
+Description=Adobe Policy Server
+ConditionPathExists=/opt/policy-server
+After=network.target
+ 
+[Service]
+Type=simple
+User=root
+
+Restart=on-failure
+
+EnvironmentFile=/opt/policy-server/env
+
+WorkingDirectory=/opt/policy-server
+ExecStart=/opt/policy-server/policy-server \
+  -p $POLICY_FILE \
+  -w $WORKERS \
+  -q $QUEUE_SIZE \
+  -c $TLS_CERT \
+  -k $TLS_KEY
+
+[Install]
+WantedBy=multi-user.target

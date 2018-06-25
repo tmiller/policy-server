@@ -1,0 +1,5 @@
+WORKERS=13
+QUEUE_SIZE=900
+TLS_KEY=/etc/ssl/private/example.com.key
+TLS_CERT=/etc/ssl/certs/example.com.crt
+POLICY_FILE=/opt/policy-server/crossdomain.xml

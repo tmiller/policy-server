@@ -3,7 +3,7 @@ GOARCH = amd64
 
 VERSION?=$(shell git describe HEAD)
 BUILD=$(shell git rev-parse HEAD)
-PACKAGE=${BINARY}-go_${VERSION}_${GOARCH}.deb
+PACKAGE=${BINARY}_${VERSION}_${GOARCH}.deb
 
 LDFLAGS = -ldflags "-s -w -X main.VERSION=${VERSION} -X main.BUILD=${BUILD}"
 
@@ -20,15 +20,14 @@ package:
 		-f \
 		-s dir \
 		-t deb \
-		-n ${BINARY}-go \
+		-n ${BINARY} \
 		-v ${VERSION} \
 		-p build \
-		--deb-upstart resources/policy-server-go.conf \
-		--after-upgrade resources/deb-after-upgrade.sh \
-		--before-remove resources/deb-before-remove.sh \
-		build/linux-${GOARCH}/${BINARY}=/opt/policy-server-go/${BINARY} \
-		resources/crossdomain.xml=/opt/policy-server-go/crossdomain.xml \
-		resources/policy-server-monitor.sh=/opt/policy-server-go/policy-server-monitor.sh
+		--deb-systemd resources/policy-server.service \
+		build/linux-${GOARCH}/${BINARY}=/opt/policy-server/${BINARY} \
+		resources/crossdomain.xml=/opt/policy-server/crossdomain.xml \
+		resources/env=/opt/policy-server/env \
+		resources/policy-server-monitor.sh=/opt/policy-server/policy-server-monitor.sh
 
 fmt:
 	go fmt
