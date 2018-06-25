@@ -53,7 +53,7 @@ VERSION=<version-number> make all
 
 ### Running the Policy Server
 
-#### Create self-signed certifiate for TLS
+#### Create self-signed certificate for TLS
 
 To be able to run the policy server a self signed TLS certificate is required
 to generate this certificate you can run the following. The only thing you need
@@ -112,7 +112,7 @@ running the more a CPU will be taxed.
 to zero.
 
 *Warning* setting the queue too high can cause the go process to run out of
-open files. On a default linux configuration which has an allowed 1024 open
+open files. On a default Linux configuration which has an allowed 1024 open
 files per process, a safe number is around 900 (allowing head room for workers
 to hold open connections).
 
