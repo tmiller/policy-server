@@ -93,6 +93,46 @@ socat ssl:localhost:8080,cafile=localhost.crt stdio
 # Press enter
 ```
 
+### Server Maintenance
+
+#### Viewing Logs
+```bash
+# Only policy-server
+sudo journalctl -f -u policy-server.service
+
+# Both policy-server and policy-server-monitor
+sudo journalctl -f -u policy-server-monitor.service -u policy-server.service -u policy-server-monitor.timer
+```
+
+#### Stopping the Policy Server
+```bash
+sudo systemctl stop policy-server-monitor.timer
+sudo systemctl stop policy-server.service
+```
+
+#### Starting the Policy Server
+
+```bash
+sudo systemctl start policy-server.service
+sudo systemctl start policy-server-monitor.timer
+```
+#### Turn off the Policy Server
+
+```bash
+sudo systemctl stop policy-server-monitor.timer
+sudo systemctl stop policy-server.service
+sudo systemctl disable policy-server-monitor.timer
+sudo systemctl disable policy-server.service
+```
+
+#### Turn on the Policy Server
+```bash
+sudo systemctl enable policy-server.service
+sudo systemctl enable policy-server-monitor.timer
+sudo systemctl start policy-server.service
+sudo systemctl start policy-server-monitor.timer
+```
+
 ### Performance Tuning
 
 There are two flags that can be used to tune performance. These are the number
