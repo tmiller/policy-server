@@ -4,4 +4,4 @@ ConditionPathExists=/opt/policy-server
 
 [Service]
 Type=oneshot
-ExecStart=/opt/policy-server/policy-server-monitor.sh
+ExecStart=/opt/policy-server/policy-server-monitor
