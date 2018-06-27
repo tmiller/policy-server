@@ -24,6 +24,8 @@ package:
 		-v ${VERSION} \
 		-p build \
 		--deb-systemd resources/policy-server.service \
+		--deb-systemd resources/policy-server-monitor.service \
+		--deb-systemd resources/policy-server-monitor.timer \
 		build/linux-${GOARCH}/${BINARY}=/opt/policy-server/${BINARY} \
 		resources/crossdomain.xml=/opt/policy-server/crossdomain.xml \
 		resources/env=/opt/policy-server/env \

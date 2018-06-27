@@ -1,0 +1,11 @@
+[Unit]
+Description=Adobe Policy Server Monitor Timer
+ConditionPathExists=/opt/policy-server
+After=policy-server.service
+
+[Timer]
+# Run every three minutes
+OnCalendar=*:0/3
+
+[Install]
+WantedBy=timers.target
