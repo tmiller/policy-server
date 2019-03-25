@@ -1,7 +1,7 @@
 BINARY = policy-server
 GOARCH = amd64
 
-VERSION?=$(shell git describe HEAD)
+VERSION?=$(shell git describe HEAD | tr -d 'v')
 BUILD=$(shell git rev-parse HEAD)
 PACKAGE=${BINARY}_${VERSION}_${GOARCH}.deb
 
